@@ -57,6 +57,12 @@ items = [
         'type': 'ring',
      },
      {
+        'name': "Band of Icy Depths",
+        'stamina': 19,
+        'frost_resistance': 20,
+        'type': 'ring',
+     },
+     {
         'name': 'Green FR Ring',
         'frost_resistance': 21,
         'type': 'ring',
