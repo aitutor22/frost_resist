@@ -11,17 +11,24 @@
       The goal of this simulation is to maximize "Effective Healing" while maintaing a minimum amount of Frost Resistance. Effective Healing is calculated based on the stat weights you input.
     </p>
     <p>
-      This simulation assumes T2 8/8 is worn, and gear choices are only considered for Back, Wand, Offhand, Ring, and Trinket spots (as well as Ice Guard Enchants for legs/helm)
+      This simulation assumes T2 8/8 is worn, and gear choices are only considered for Back, Wand, Offhand, Ring, and Trinket spots (as well as Ice Guard Enchants for legs/helm).
     </p>
     <hr>
     {% load crispy_forms_tags %}
-    <form action="/enquiry/" method="POST" class="post-form">
+    <form action="" method="POST" class="post-form">
         {% csrf_token %}
         {% crispy form %}
     </form> 
+    {{ results|json_script:"results" }}
+    <div id="app">
+      <p v-if="results && pulledResults">
+        ${ results }
+      </p>
+    </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
   {% load static %}
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">
 </body>

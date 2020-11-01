@@ -36,17 +36,18 @@ items = [
         'type': 'wand',
     }    
     ],
-    [{
-        'name': 'Magebane Scion',
-        'frost_resistance': 10,
-        'type': 'offhand',
-    },
+    [
     {
         'name': 'Lei of the Lifegiver',
         'mp5': 3,
         'healing': 53,
         'type': 'offhand',
-    }    
+    },
+    {
+        'name': 'Magebane Scion',
+        'frost_resistance': 10,
+        'type': 'offhand',
+    },  
     ],
     [
      {
@@ -56,20 +57,20 @@ items = [
         'type': 'ring',
      },
      {
-        'name': 'Green FR Ring',
+        'name': 'Green FR Ring (21 Fr)',
         'frost_resistance': 21,
         'type': 'ring',
     },
     {
-        'name': 'Green FR Ring Duplicate',
+        'name': 'Green FR Ring Duplicate (21 Fr)',
         'frost_resistance': 21,
         'type': 'ring',
     },
     {
-        'name': 'Cauterizing Band',
-        'stamina': 9,
-        'intellect': 12,
-        'healing': 46,
+        'name': 'Ring of the Martyr',
+        'stamina': 10,
+        'mp5': 5,
+        'healing': 51,
         'type': 'ring',
     },
     {
@@ -81,12 +82,12 @@ items = [
         'type': 'ring',
     },
     {
-        'name': 'Ring of the Martyr',
-        'stamina': 10,
-        'mp5': 5,
-        'healing': 51,
+        'name': 'Cauterizing Band',
+        'stamina': 9,
+        'intellect': 12,
+        'healing': 46,
         'type': 'ring',
-    }
+    },
     ],
     [{
         'name': 'Gyrofreeze Ice Reflector',
@@ -123,7 +124,7 @@ items = [
         'type': 'neck',   
     },
     {
-        'name': "Green FR Neck",
+        'name': "Green FR Neck (14 Fr)",
         'frost_resistance': 14,
         'type': 'neck',
     },
@@ -204,13 +205,6 @@ items = [
         'healing': 14,
         'type': 'back',
     },
-     {
-        'name': 'Hide of the Wild',
-        'intellect': 10,
-        'stamina': 8,
-        'healing': 42,
-        'type': 'back',
-    }, 
     {
         'name': "Cloak of Clarity",
         'intellect': 12,
@@ -220,5 +214,12 @@ items = [
         'healing': 40,
         'type': 'back',
     }, 
+    {
+        'name': 'Hide of the Wild',
+        'intellect': 10,
+        'stamina': 8,
+        'healing': 42,
+        'type': 'back',
+    },
     ]   
 ]

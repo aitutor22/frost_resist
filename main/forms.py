@@ -15,50 +15,57 @@ for row in items:
     preselected[row[0]['type']] = [item['name'] for item in row]
 
 class StatWeightForm(forms.Form):
-    mp5 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '3'}))
-    intellect = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '1.3'}))
-    spirit = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '0.7'}))
-    stamina = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '0.2'}))
-    healing = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '1'}))
-    blue_dragon_mp5 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '25'}))
+    target_minimum_frost_resistance = forms.CharField(initial='80')
+    mp5 = forms.CharField(initial='3')
+    intellect = forms.CharField(initial='1.3')
+    spirit = forms.CharField(initial='0.7')
+    stamina = forms.CharField(initial='0.2')
+    blue_dragon_mp5 = forms.CharField(initial='25')
+
     neck_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['neck'],
         initial=preselected['neck'],
+        required=False
     )
     back_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['back'],
         initial=preselected['back'],
+        required=False
     )
     ring_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['ring'],
         initial=preselected['ring'],
+        required=False
     )
     trinket_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['trinket'],
         initial=preselected['trinket'],
+        required=False
     )
     wand_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['wand'],
         initial=preselected['wand'],
+        required=False
     )
     offhand_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['offhand'],
         initial=preselected['offhand'],
+        required=False
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
+        Column('target_minimum_frost_resistance'),
         HTML("""
-            <p><i>Please enter your desired stat weights.</i></p>
+            <br><p><i>Please enter your desired stat weights.</i></p>
         """),
             Row(
                 Column('mp5', css_class='form-group col-md-2 mb-0'),
                 Column('intellect', css_class='form-group col-md-2 mb-0'),
                 Column('spirit', css_class='form-group col-md-2 mb-0'),
                 Column('stamina', css_class='form-group col-md-2 mb-0'),
-                Column('healing', css_class='form-group col-md-2 mb-0'),
                 Column('blue_dragon_mp5', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
@@ -69,13 +76,16 @@ class StatWeightForm(forms.Form):
         HTML("<br>"),
         InlineCheckboxes('back_items'),
         HTML("<br>"),
-        InlineCheckboxes('ring_items'),
-        HTML("<br>"),
-        InlineCheckboxes('trinket_items'),
-        HTML("<br>"),
         InlineCheckboxes('wand_items'),
         HTML("<br>"),
         InlineCheckboxes('offhand_items'),
+        HTML("<br>"),
+        HTML("""
+            <p><i>Note: Possible to wear duplicate Green FR rings and frost reflector trinkets.</i></p>
+        """),
+        InlineCheckboxes('ring_items'),
+        HTML("<br>"),
+        InlineCheckboxes('trinket_items'),
         HTML("<br>"),
         Submit('submit', 'Submit')
         )
