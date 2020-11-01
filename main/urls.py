@@ -19,7 +19,7 @@ urlpatterns = [
     # path('holiday_camps/', views.holiday_camps, name='holiday_camps'),
     # path('online_lesson/', views.online_lesson, name='online_lesson'),
 
-    # path(r'enquiry/', views.create_enquiry, name='create_enquiry'),
+    path(r'optimise/', views.optimise, name='optimise'),
 
     # # other paths
     # path('pricing/', views.pricing, name='pricing'),

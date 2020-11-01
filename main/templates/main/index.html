@@ -2,8 +2,27 @@
 <html>
 <head>
   <title>Index</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-  <h1>Testing</h1>
+  <div class="container">
+    <h1>Priest Frost Resist Optimzation</h1>
+    <p>
+      The goal of this simulation is to maximize "Effective Healing" while maintaing a minimum amount of Frost Resistance. Effective Healing is calculated based on the stat weights you input.
+    </p>
+    <p>
+      This simulation assumes T2 8/8 is worn, and gear choices are only considered for Back, Wand, Offhand, Ring, and Trinket spots (as well as Ice Guard Enchants for legs/helm)
+    </p>
+    <hr>
+    {% load crispy_forms_tags %}
+    <form action="/enquiry/" method="POST" class="post-form">
+        {% csrf_token %}
+        {% crispy form %}
+    </form> 
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  {% load static %}
+  <script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">
 </body>
 </html>
