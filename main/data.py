@@ -57,12 +57,12 @@ items = [
         'type': 'ring',
      },
      {
-        'name': 'Green FR Ring (21 Fr)',
+        'name': 'Green FR Ring',
         'frost_resistance': 21,
         'type': 'ring',
     },
     {
-        'name': 'Green FR Ring Duplicate (21 Fr)',
+        'name': 'Green FR Ring Duplicate',
         'frost_resistance': 21,
         'type': 'ring',
     },
@@ -124,7 +124,7 @@ items = [
         'type': 'neck',   
     },
     {
-        'name': "Green FR Neck (14 Fr)",
+        'name': "Green FR Neck",
         'frost_resistance': 14,
         'type': 'neck',
     },

@@ -8,23 +8,44 @@
   <div class="container">
     <h1>Priest Frost Resist Optimzation</h1>
     <p>
-      The goal of this simulation is to maximize "Effective Healing" while maintaing a minimum amount of Frost Resistance. Effective Healing is calculated based on the stat weights you input.
+      The goal of this simulation is to maximize "Equivalent Points" while maintaing a minimum amount of Frost Resistance for Sapphiron. Equivalent Points is calculated based on the stat weights you input (e.g. setting 3 mp5 implies you value mp5 at 3 +heal).
     </p>
     <p>
       This simulation assumes T2 8/8 is worn, and gear choices are only considered for Back, Wand, Offhand, Ring, and Trinket spots (as well as Ice Guard Enchants for legs/helm).
     </p>
+    <p>
+      Frost enchant for cloak is not included (since all cloaks can be enchanted), and please adjust from the inputted target frost resistance.
+    </p>
     <hr>
+
+    <div id="app">
+      <div v-if="results && pulledResults">
+        <h3>Results</h3>
+        <div>
+          <span>
+            <b>Total Frost Resist:</b> ${ results.total_frost_resistance }
+            (${ damageTakenPerSecond } damage taken per second, ${ mitigation }% mitigation)
+          </span>
+
+          <br>
+          <span><b>Total Equivalent Points:</b> ${ results.total_equivalent_points }</span>
+        </div>
+        <br>
+        <ul>
+          <li v-for="item in results.items">
+          ${ item.name } (${ item.frost_resistance } Fr, ${ item.equivalent_points } Equivalent Points)
+        </li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+
     {% load crispy_forms_tags %}
     <form action="" method="POST" class="post-form">
         {% csrf_token %}
         {% crispy form %}
     </form> 
     {{ results|json_script:"results" }}
-    <div id="app">
-      <p v-if="results && pulledResults">
-        ${ results }
-      </p>
-    </div>
   </div>
 
   {% load static %}

@@ -32,6 +32,16 @@ class StatWeightForm(forms.Form):
         initial=preselected['back'],
         required=False
     )
+    head_items = forms.MultipleChoiceField(
+        choices=item_map_by_slot['head'],
+        initial=preselected['head'],
+        required=False
+    )
+    legs_items = forms.MultipleChoiceField(
+        choices=item_map_by_slot['legs'],
+        initial=preselected['legs'],
+        required=False
+    )
     ring_items = forms.MultipleChoiceField(
         choices=item_map_by_slot['ring'],
         initial=preselected['ring'],
@@ -75,6 +85,10 @@ class StatWeightForm(forms.Form):
         InlineCheckboxes('neck_items'),
         HTML("<br>"),
         InlineCheckboxes('back_items'),
+        HTML("<br>"),
+        InlineCheckboxes('head_items'),
+        HTML("<br>"),
+        InlineCheckboxes('legs_items'),
         HTML("<br>"),
         InlineCheckboxes('wand_items'),
         HTML("<br>"),

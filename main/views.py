@@ -16,10 +16,8 @@ from .data import items
 # pages that aren't part of dropdown
 def index(request):
     if request.method == 'POST':
-        print('here')
         form = StatWeightForm(request.POST)
         if form.is_valid():
-            print('???')
             target_minimum_frost_resistance = int(form.cleaned_data['target_minimum_frost_resistance'])
             stat_weights = {
                 'mp5': float(form.cleaned_data['mp5']),
@@ -29,7 +27,8 @@ def index(request):
             }
 
             selected_items = itertools.chain(form.cleaned_data['neck_items'], form.cleaned_data['back_items'], form.cleaned_data['ring_items'],
-                form.cleaned_data['trinket_items'], form.cleaned_data['wand_items'], form.cleaned_data['offhand_items'])
+                form.cleaned_data['trinket_items'], form.cleaned_data['head_items'], form.cleaned_data['legs_items'],
+                form.cleaned_data['wand_items'], form.cleaned_data['offhand_items'])
             
             # # creates a subset of items based on the gear user selected
             subset_items = create_copy_items(selected_items, float(form.cleaned_data['blue_dragon_mp5']))
@@ -40,14 +39,19 @@ def index(request):
             
             results = {
                 'items': [],
-                'total_fr': 0,
+                'total_frost_resistance': 0,
+                'total_equivalent_points': 0,
             }
 
             for variable in model.variables():
                 if variable.value() == 1:
                     name = ' '.join(variable.name.split('_'))
-                    results['total_fr'] += subset_item_map[name]['frost_resistance']
+                    results['total_frost_resistance'] += subset_item_map[name]['frost_resistance']
+                    results['total_equivalent_points'] += subset_item_map[name]['equivalent_points']
                     results['items'].append(subset_item_map[name])
+
+            results['total_equivalent_points'] = int(results['total_equivalent_points'])
+            results['items'].sort(key=lambda x: -x['equivalent_points'])
 
             return render(request, 'main/index.html', {
                 'form': form,
@@ -102,18 +106,20 @@ def solve(subset_items, stat_weights, target_minimum_frost_resistance):
         for item in row:
             variables[index].append(LpVariable(name=item['name'], cat='Binary'))
             
-            # calculates equivalent_healing for every item       
-            item['equivalent_healing'] = item.get('mp5', 0) * stat_weights['mp5'] \
+            # calculates equivalent_points for every item       
+            item['equivalent_points'] = item.get('mp5', 0) * stat_weights['mp5'] \
                 + item.get('stamina', 0) * stat_weights['stamina'] \
                 + item.get('spirit', 0) * stat_weights['spirit'] \
                 + item.get('healing', 0) \
                 + item.get('intellect', 0) * stat_weights['intellect']
+
+            item['equivalent_points'] = int(item['equivalent_points'])
                 
             # for items without frost_resistance, add a default value         
             item.setdefault('frost_resistance', 0)
             
             # adds to objective function and frost_resist constraints        
-            objective_function += variables[index][-1] * item['equivalent_healing']
+            objective_function += variables[index][-1] * item['equivalent_points']
             frost_resist_constraint += variables[index][-1] * item['frost_resistance']
 
     # constraint - can only equip one type of item (except for trinkets and rings)
