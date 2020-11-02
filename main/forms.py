@@ -15,6 +15,8 @@ for row in items:
     preselected[row[0]['type']] = [item['name'] for item in row]
 
 class StatWeightForm(forms.Form):
+    is_dwarf = forms.BooleanField(required=False)
+    frost_resist_cloak_enchant = forms.BooleanField(required=False)
     target_minimum_frost_resistance = forms.CharField(initial='80')
     mp5 = forms.CharField(initial='3')
     intellect = forms.CharField(initial='1.3')
@@ -67,9 +69,16 @@ class StatWeightForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-        Column('target_minimum_frost_resistance'),
         HTML("""
-            <br><p><i>Please enter your desired stat weights.</i></p>
+            <p><b><i>Please enter character details.</i></b></p>
+        """),
+        Row(
+            Column('target_minimum_frost_resistance', css_class='form-group col-md-4 mb-0'),
+            Column('is_dwarf', css_class='form-group col-md-2 mb-0'),
+            Column('frost_resist_cloak_enchant', css_class='form-group col-md-4 mb-0'),
+        ),
+        HTML("""
+            <br><p><b><i>Please enter your desired stat weights.</i></b></p>
         """),
             Row(
                 Column('mp5', css_class='form-group col-md-2 mb-0'),
@@ -80,7 +89,7 @@ class StatWeightForm(forms.Form):
                 css_class='form-row'
             ),
         HTML("""<br>
-            <p><i>Please tick the items you have.</i></p>
+            <p><i><b>Please tick the items you have.</i></b></p>
         """),
         InlineCheckboxes('neck_items'),
         HTML("<br>"),
@@ -95,11 +104,11 @@ class StatWeightForm(forms.Form):
         InlineCheckboxes('offhand_items'),
         HTML("<br>"),
         HTML("""
-            <p><i>Note: Possible to wear duplicate Green FR rings and frost reflector trinkets.</i></p>
+            <p><b><i>Note: Possible to wear duplicate Green FR rings and frost reflector trinkets.</i></b></p>
         """),
         InlineCheckboxes('ring_items'),
         HTML("<br>"),
         InlineCheckboxes('trinket_items'),
         HTML("<br>"),
-        Submit('submit', 'Submit')
+        Submit('submit', 'Optimise')
         )

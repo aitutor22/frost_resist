@@ -31,12 +31,29 @@ items = [
         'type': 'wand',
     },
     {
+        'name': 'Lunar Wand',
+        'healing': 20,
+        'type': 'wand',
+    },
+    {
+        'name': 'Dragon Wand',
+        'healing': 18,
+        'type': 'wand',
+    },
+    {
         'name': 'Banshee Finger',
         'frost_resistance': 10,
         'type': 'wand',
     }    
     ],
     [
+    {
+        'name': "Sartura's Might",
+        'stamina': 6,
+        'intellect': 6,
+        'healing': 51,
+        'type': 'offhand',
+    },
     {
         'name': 'Lei of the Lifegiver',
         'mp5': 3,
@@ -181,6 +198,11 @@ items = [
         'name': 'Glacial Cloak',
         'stamina': 18,
         'frost_resistance': 24,
+        'type': 'back',
+    },
+    {
+        'name': 'Green FR Cloak',
+        'frost_resistance': 15,
         'type': 'back',
     },
     {

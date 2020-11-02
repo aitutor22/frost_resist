@@ -18,7 +18,12 @@ def index(request):
     if request.method == 'POST':
         form = StatWeightForm(request.POST)
         if form.is_valid():
-            target_minimum_frost_resistance = int(form.cleaned_data['target_minimum_frost_resistance'])
+            is_dwarf = int(form.cleaned_data['is_dwarf'])
+            frost_resist_cloak_enchant = int(form.cleaned_data['frost_resist_cloak_enchant'])
+
+            other_frost_resist = is_dwarf * 10 + frost_resist_cloak_enchant * 5
+
+            target_minimum_frost_resistance = int(form.cleaned_data['target_minimum_frost_resistance']) - other_frost_resist
             stat_weights = {
                 'mp5': float(form.cleaned_data['mp5']),
                 'spirit': float(form.cleaned_data['spirit']),
@@ -39,7 +44,7 @@ def index(request):
             
             results = {
                 'items': [],
-                'total_frost_resistance': 0,
+                'total_frost_resistance': other_frost_resist,
                 'total_equivalent_points': 0,
             }
 
@@ -52,6 +57,10 @@ def index(request):
 
             results['total_equivalent_points'] = int(results['total_equivalent_points'])
             results['items'].sort(key=lambda x: -x['equivalent_points'])
+            results['others'] = {
+                'is_dwarf': is_dwarf,
+                'frost_resist_cloak_enchant': frost_resist_cloak_enchant,
+            }
 
             return render(request, 'main/index.html', {
                 'form': form,
@@ -71,13 +80,11 @@ def results(request):
 # given selected items, create a 2D list (by item type, then item)
 # also need to manually overwrite blue dragon value
 def create_copy_items(selected_items, blue_dragon_mp5):
-    print('here')
     item_map = {item['name']: item for item in itertools.chain(*items)}
     results = []
 
     current_item_type = ''
     for item in selected_items:
-        print(item)
         entry = item_map[item]
 
         # every time there is a new item type, we create a new row

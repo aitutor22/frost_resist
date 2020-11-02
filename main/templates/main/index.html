@@ -13,9 +13,6 @@
     <p>
       This simulation assumes T2 8/8 is worn, and gear choices are only considered for Back, Wand, Offhand, Ring, and Trinket spots (as well as Ice Guard Enchants for legs/helm).
     </p>
-    <p>
-      Frost enchant for cloak is not included (since all cloaks can be enchanted), and please adjust from the inputted target frost resistance.
-    </p>
     <hr>
 
     <div id="app">
@@ -31,12 +28,38 @@
           <span><b>Total Equivalent Points:</b> ${ results.total_equivalent_points }</span>
         </div>
         <br>
-        <ul>
-          <li v-for="item in results.items">
-          ${ item.name } (${ item.frost_resistance } Fr, ${ item.equivalent_points } Equivalent Points)
-        </li>
-        </ul>
-        <hr>
+        <div>
+          <b>FROM GEAR</b>
+          <ul>
+            <li v-for="item in results.items">
+              <b>${ item.name }</b>
+              <span>
+                (${ item.frost_resistance } Fr, ${ item.equivalent_points } Equivalent Points)
+              </span>
+            </li>
+          </ul>
+          <hr>
+        </div>
+        <div>
+        <div v-if="showOthers">
+          <b>OTHERS</b>
+          <ul>
+            <li v-if="results.others.is_dwarf">
+              <b>Dwarf Racial</b>
+              <span>
+                (+10 Fr)
+              </span>
+            </li>
+            <li v-if="results.others.frost_resist_cloak_enchant">
+              <b>Frost Resist Cloak Enchant</b>
+              <span>
+                (+5 Fr)
+              </span>
+            </li>
+          </ul>
+          <hr>
+        </div>
+        </div>
       </div>
     </div>
 

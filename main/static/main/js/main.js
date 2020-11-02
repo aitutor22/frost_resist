@@ -16,6 +16,10 @@ const app = new Vue({
       if (!this.pulledResults) return;
       return Math.floor((100 - this.mitigation) / 100 * 300);
     },
+    showOthers: function() {
+      if (!this.pulledResults) return;
+      return this.results['others']['is_dwarf'] || this.results['others']['frost_resist_cloak_enchant'];
+    }
   },
   mounted: function() {
     this.results = JSON.parse(document.getElementById('results').textContent);
