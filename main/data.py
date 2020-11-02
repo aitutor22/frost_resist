@@ -52,6 +52,7 @@ items = [
         'stamina': 6,
         'intellect': 6,
         'healing': 51,
+        'mp5': 5,
         'type': 'offhand',
     },
     {
